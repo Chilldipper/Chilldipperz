@@ -141,10 +141,71 @@
     <p class="about fade-block">
       A 10,000-piece meme-driven pixel collection of chill dippers. <br> Born to dip. Forced to chill. When the chart bleeds, the chill begins.
     </p>
+    <!-- MINT SECTION -->
+<section id="mint" class="fade-block" style="margin-top: 3rem;">
+  <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">Mint Your ChillDipper</h2>
+  <p style="color:#ccc;">Connect your wallet and mint directly from the site.</p>
+  
+  <div style="margin-top:1.5rem;">
+    <button id="connectBtn" class="btn">Connect Wallet</button>
+    <button id="mintBtn" class="btn" disabled>Mint NFT</button>
+  </div>
+  
+  <p id="status" style="color:#888;margin-top:1rem;font-size:0.9rem;">Wallet not connected</p>
+</section>
+
   </main>
 
   <footer class="fade-block">
     © 2025 ChillDipperz — Stay Chill.
   </footer>
 </body>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+<script>
+const connectBtn = document.getElementById('connectBtn');
+const mintBtn = document.getElementById('mintBtn');
+const statusText = document.getElementById('status');
+let provider, signer;
+
+async function connectWallet() {
+  if (window.ethereum) {
+    try {
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      signer = provider.getSigner();
+      const address = await signer.getAddress();
+      statusText.textContent = `Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
+      connectBtn.textContent = "Connected";
+      connectBtn.disabled = true;
+      mintBtn.disabled = false;
+    } catch (err) {
+      console.error(err);
+      statusText.textContent = "Connection failed.";
+    }
+  } else {
+    alert("Please install MetaMask to connect your wallet!");
+  }
+}
+
+async function mintNFT() {
+  try {
+    const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
+    const abi = []; // You’ll paste your contract ABI here later
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    // Example: Replace with your actual mint function call later
+    // const tx = await contract.mint({ value: ethers.utils.parseEther("0.0025") });
+    // await tx.wait();
+
+    statusText.textContent = "Mint function placeholder – contract not live yet.";
+  } catch (err) {
+    console.error(err);
+    statusText.textContent = "Mint failed: " + err.message;
+  }
+}
+
+connectBtn.addEventListener('click', connectWallet);
+mintBtn.addEventListener('click', mintNFT);
+</script>
+
 </html>
