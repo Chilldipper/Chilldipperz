@@ -16,20 +16,23 @@
       overflow-x: hidden;
     }
 
-    /* Fade-in for the whole page */
-    body, header img, h1, p, .buttons, footer {
+    /* --- ANIMATION STYLES --- */
+
+    .fade-block {
       opacity: 0;
       animation: fadeIn 1.2s ease forwards;
     }
-    header img { animation-delay: 0.2s; }
-    h1 { animation-delay: 0.8s; }
-    p.tagline { animation-delay: 1.2s; }
-    .buttons { animation-delay: 1.6s; }
-    footer { animation-delay: 2s; }
+
+    header img.fade-block    { animation-delay: 0.2s; }
+    h1.fade-block            { animation-delay: 0.8s; }
+    p.tagline.fade-block     { animation-delay: 1.2s; }
+    .buttons.fade-block      { animation-delay: 1.6s; }
+    p.about.fade-block       { animation-delay: 1.8s; }
+    footer.fade-block        { animation-delay: 2s; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     header img {
@@ -49,8 +52,12 @@
       animation: pulse 3s infinite ease-in-out;
     }
     @keyframes pulse {
-      0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
-      50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
+      0%, 100% {
+        text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
+      }
+      50% {
+        text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff;
+      }
     }
 
     p.tagline {
@@ -65,6 +72,7 @@
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
+
     a.btn {
       text-decoration: none;
       color: #fff;
@@ -78,6 +86,15 @@
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
       box-shadow: 0 0 20px #00e0ff;
       transform: scale(1.05);
+    }
+
+    p.about {
+      color: #ccc;
+      max-width: 900px;
+      margin: 0 auto 2rem auto;
+      line-height: 1.4rem;
+      font-size: 0.9rem;
+      padding: 0 1rem;
     }
 
     footer {
@@ -95,22 +112,29 @@
 </head>
 <body>
   <header>
-    <img src="https://raw.githubusercontent.com/Chilldipper/Chilldipperz/main/Chilldipper%20banner.png" alt="ChillDipperz Banner">
+    <img
+      class="fade-block"
+      src="https://raw.githubusercontent.com/Chilldipper/Chilldipperz/main/Chilldipper%20banner.png"
+      alt="ChillDipperz Banner"
+    >
   </header>
 
   <main>
-    <h1>Welcome to ChillDipperz</h1>
-    <p class="tagline">Don’t panic. Dip. Chill. Repeat.</p>
+    <h1 class="fade-block">Welcome to ChillDipperz</h1>
 
-    <div class="buttons">
+    <p class="tagline fade-block">Don’t panic. Dip. Chill. Repeat.</p>
+
+    <div class="buttons fade-block">
       <a href="https://twitter.com/chilldipperZ" target="_blank" class="btn">Follow on Twitter</a>
       <a href="#" target="_blank" class="btn">View on OpenSea</a>
     </div>
 
-    <p>A 10,000-piece meme-driven pixel collection of chill dippers buying the dip on Base & Ethereum.</p>
+    <p class="about fade-block">
+      A 10,000-piece meme-driven pixel collection of chill dippers buying the dip on Base &amp; Ethereum.
+    </p>
   </main>
 
-  <footer>
+  <footer class="fade-block">
     © 2025 ChillDipperz — Stay Chill.
   </footer>
 </body>
