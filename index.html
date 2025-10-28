@@ -16,23 +16,21 @@
       overflow-x: hidden;
     }
 
-    /* --- ANIMATION STYLES --- */
-
+    /* Fade-in for the whole page */
     .fade-block {
       opacity: 0;
       animation: fadeIn 1.2s ease forwards;
     }
-
-    header img.fade-block    { animation-delay: 0.2s; }
-    h1.fade-block            { animation-delay: 0.8s; }
-    p.tagline.fade-block     { animation-delay: 1.2s; }
-    .buttons.fade-block      { animation-delay: 1.6s; }
-    p.about.fade-block       { animation-delay: 1.8s; }
-    footer.fade-block        { animation-delay: 2s; }
+    header img.fade-block { animation-delay: 0.2s; }
+    h1.fade-block { animation-delay: 0.8s; }
+    p.tagline.fade-block { animation-delay: 1.2s; }
+    .buttons.fade-block { animation-delay: 1.6s; }
+    p.about.fade-block { animation-delay: 1.8s; }
+    footer.fade-block { animation-delay: 2s; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     header img {
@@ -73,7 +71,7 @@
       margin-bottom: 3rem;
     }
 
-    a.btn {
+    a.btn, button.btn {
       text-decoration: none;
       color: #fff;
       border: 2px solid #00e0ff;
@@ -81,8 +79,12 @@
       border-radius: 50px;
       transition: 0.3s;
       box-shadow: 0 0 10px #00e0ff77;
+      background: transparent;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
     }
-    a.btn:hover {
+
+    a.btn:hover, button.btn:hover {
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
       box-shadow: 0 0 20px #00e0ff;
       transform: scale(1.05);
@@ -95,6 +97,17 @@
       line-height: 1.4rem;
       font-size: 0.9rem;
       padding: 0 1rem;
+      text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
+      animation: textPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes textPulse {
+      0%, 100% {
+        text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
+      }
+      50% {
+        text-shadow: 0 0 12px #00e0ff, 0 0 24px #ff00ff;
+      }
     }
 
     footer {
@@ -108,15 +121,6 @@
       h1 { font-size: 1.8rem; }
       .buttons { flex-direction: column; }
     }
-   p.about {
-  color: #ccc;
-  max-width: 900px;
-  margin: 0 auto 2rem auto;
-  line-height: 1.4rem;
-  font-size: 0.9rem;
-  padding: 0 1rem;
-  text-shadow: 0 0 8px #00e0ff, 0 0 16px #ff00ff;
-}
   </style>
 </head>
 <body>
@@ -130,7 +134,6 @@
 
   <main>
     <h1 class="fade-block">Welcome to ChillDipperz</h1>
-
     <p class="tagline fade-block">Don’t panic. Dip. Chill. Repeat.</p>
 
     <div class="buttons fade-block">
@@ -139,102 +142,113 @@
     </div>
 
     <p class="about fade-block">
-      A 10,000-piece meme-driven pixel collection of chill dippers. <br> Born to dip. Forced to chill. When the chart bleeds, the chill begins.
+      Born to dip. Forced to chill. When the chart bleeds, the chill begins.
     </p>
-    <!-- MINT SECTION -->
-<section id="mint" class="fade-block" style="margin-top: 3rem;">
-  <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">Mint Your ChillDipper</h2>
-  <p style="color:#ccc;">Connect your wallet and mint directly from the site.</p>
-  
-  <div style="margin-top:1.5rem;">
-    <button id="connectBtn" class="btn">Connect Wallet</button>
-    <button id="mintBtn" class="btn" disabled>Mint NFT</button>
-  </div>
-  
-  <p id="status" style="color:#888;margin-top:1rem;font-size:0.9rem;">Wallet not connected</p>
-</section>
 
+    <!-- MINT SECTION -->
+    <section id="mint" class="fade-block" style="margin-top: 3rem;">
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">Mint Your ChillDipper</h2>
+      <p style="color:#ccc;">Connect your wallet and mint directly from the site.</p>
+
+      <div style="margin-top:1.5rem;">
+        <button id="connectBtn" class="btn">Connect Wallet</button>
+        <button id="mintBtn" class="btn" disabled>Mint NFT</button>
+      </div>
+
+      <p id="status" style="color:#888;margin-top:1rem;font-size:0.9rem;">Wallet not connected</p>
+    </section>
+
+    <!-- LORE SECTION -->
+    <section id="lore" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Lore</h2>
+      <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
+        In the ancient charts of crypto chaos, there rose a tribe unlike any other.
+        When the candles burned red and timelines screamed, they didn’t panic.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        They took deep breaths, grabbed their wallets, and whispered the sacred mantra:
+        <span style="color:#00e0ff;">“Buy the dip. Chill the trip.”</span>
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        These were the <strong>ChillDipperz</strong> — 10,000 souls forged in market volatility.
+        They meditate through liquidation, they meme through the madness, and they see opportunity
+        where others see doom.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        Across chains and bear markets, they wander… stacking dips, chilling harder,
+        and waiting for the next cosmic pump.
+      </p>
+      <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
+        The charts may bleed. The chill remains.
+      </p>
+    </section>
+
+    <!-- THE VIBE SECTION -->
+    <section id="vibe" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Vibe</h2>
+      <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
+        We’re not building a roadmap. We’re building a mood.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        No promises, no utilities, just vibes, memes, and questionable market timing.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        We don’t chase pumps — we chill in the dumps.  
+        When everyone screams “exit,” we’re already buying the dip.
+      </p>
+      <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
+        The mission: <strong>Keep the market cold. Keep the holders chill.</strong>
+      </p>
+    </section>
   </main>
 
   <footer class="fade-block">
     © 2025 ChillDipperz — Stay Chill.
   </footer>
-</body>
+
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-<script>
-const connectBtn = document.getElementById('connectBtn');
-const mintBtn = document.getElementById('mintBtn');
-const statusText = document.getElementById('status');
-let provider, signer;
+  <script>
+    const connectBtn = document.getElementById('connectBtn');
+    const mintBtn = document.getElementById('mintBtn');
+    const statusText = document.getElementById('status');
+    let provider, signer;
 
-async function connectWallet() {
-  if (window.ethereum) {
-    try {
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      signer = provider.getSigner();
-      const address = await signer.getAddress();
-      statusText.textContent = `Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
-      connectBtn.textContent = "Connected";
-      connectBtn.disabled = true;
-      mintBtn.disabled = false;
-    } catch (err) {
-      console.error(err);
-      statusText.textContent = "Connection failed.";
+    async function connectWallet() {
+      if (window.ethereum) {
+        try {
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          await provider.send("eth_requestAccounts", []);
+          signer = provider.getSigner();
+          const address = await signer.getAddress();
+          statusText.textContent = `Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
+          connectBtn.textContent = "Connected";
+          connectBtn.disabled = true;
+          mintBtn.disabled = false;
+        } catch (err) {
+          console.error(err);
+          statusText.textContent = "Connection failed.";
+        }
+      } else {
+        alert("Please install MetaMask to connect your wallet!");
+      }
     }
-  } else {
-    alert("Please install MetaMask to connect your wallet!");
-  }
-}
 
-async function mintNFT() {
-  try {
-    const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
-    const abi = []; // You’ll paste your contract ABI here later
-    const contract = new ethers.Contract(contractAddress, abi, signer);
+    async function mintNFT() {
+      try {
+        const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
+        const abi = []; // You’ll paste your contract ABI here later
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
-    // Example: Replace with your actual mint function call later
-    // const tx = await contract.mint({ value: ethers.utils.parseEther("0.0025") });
-    // await tx.wait();
+        // Placeholder until contract is live
+        statusText.textContent = "Mint function placeholder – contract not live yet.";
+      } catch (err) {
+        console.error(err);
+        statusText.textContent = "Mint failed: " + err.message;
+      }
+    }
 
-    statusText.textContent = "Mint function placeholder – contract not live yet.";
-  } catch (err) {
-    console.error(err);
-    statusText.textContent = "Mint failed: " + err.message;
-  }
-}
-
-connectBtn.addEventListener('click', connectWallet);
-mintBtn.addEventListener('click', mintNFT);
-</script>
-
+    connectBtn.addEventListener('click', connectWallet);
+    mintBtn.addEventListener('click', mintNFT);
+  </script>
+</body>
 </html>
-<!-- LORE SECTION -->
-<section id="lore" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
-  <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Lore</h2>
-
-  <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
-    In the ancient charts of crypto chaos, there rose a tribe unlike any other.
-    When the candles burned red and timelines screamed, they didn’t panic.
-  </p>
-
-  <p style="color:#ccc; line-height:1.6rem;">
-    They took deep breaths, grabbed their wallets, and whispered the sacred mantra:
-    <span style="color:#00e0ff;">“Buy the dip. Chill the trip.”</span>
-  </p>
-
-  <p style="color:#ccc; line-height:1.6rem;">
-    These were the <strong>ChillDipperz</strong> — 10,000 souls forged in market volatility.
-    They meditate through liquidation, they meme through the madness, and they see opportunity
-    where others see doom.
-  </p>
-
-  <p style="color:#ccc; line-height:1.6rem;">
-    Across chains and bear markets, they wander… stacking dips, chilling harder,
-    and waiting for the next cosmic pump.
-  </p>
-
-  <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
-    The charts may bleed. The chill remains.
-  </p>
-</section>
