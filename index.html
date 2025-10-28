@@ -3,143 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ChillDipperz NFT Collection — Don't panic. Dip. Chill. Repeat." />
   <title>ChillDipperz</title>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="ChillDipperz" />
-  <meta property="og:description" content="From Chill to Thrill 📈" />
-  <meta property="og:image" content="https://chilldipperz.com/preview.png" />
-  <meta property="og:url" content="https://chilldipperz.com" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="ChillDipperz" />
-  <meta name="twitter:description" content="From Chill to Thrill 📈" />
-  <meta name="twitter:image" content="https://chilldipperz.com/preview.png" />
-  <meta name="twitter:site" content="@ChillDipperz" />
-  <meta name="twitter:creator" content="@ChillDipperz" />
-
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
     body {
-      background-color: #0b0b0f;
-      color: #f5f5f5;
-      font-family: "Space Mono", monospace;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #0a0a1a, #000);
+      color: #fff;
       text-align: center;
+      overflow-x: hidden;
+    }
+    header img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      box-shadow: 0 0 30px #00ccff33;
     }
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
-      letter-spacing: 1px;
+      margin-top: 1rem;
+      color: #00e0ff;
+      text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
     }
-    p {
-      max-width: 480px;
-      line-height: 1.6;
-      opacity: 0.85;
+    p.tagline {
+      font-size: 1.2rem;
+      color: #ccc;
       margin-bottom: 2rem;
-      font-size: 1.05rem;
     }
-    a.button {
-      background: linear-gradient(135deg, #4f46e5, #9333ea);
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: opacity 0.25s ease;
-    }
-    a.button:hover {
-      opacity: 0.8;
-    }
-    footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.8rem;
-      opacity: 0.5;
-    }
-  </style>
-</head>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ChillDipperz</title>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="ChillDipperz" />
-  <meta property="og:description" content="From Chill to Thrill 📈" />
-  <meta property="og:image" content="https://chilldipperz.com/preview.png" />
-  <meta property="og:url" content="https://chilldipperz.com" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="ChillDipperz" />
-  <meta name="twitter:description" content="From Chill to Thrill 📈" />
-  <meta name="twitter:image" content="https://chilldipperz.com/preview.png" />
-  <meta name="twitter:site" content="@ChillDipperz" />
-  <meta name="twitter:creator" content="@ChillDipperz" />
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: #0b0b0f;
-      color: #f5f5f5;
-      font-family: "Space Mono", monospace;
-      height: 100vh;
+    .buttons {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
     }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      letter-spacing: 1px;
-    }
-    p {
-      max-width: 480px;
-      line-height: 1.6;
-      opacity: 0.85;
-      margin-bottom: 2rem;
-      font-size: 1.05rem;
-    }
-    a.button {
-      background: linear-gradient(135deg, #4f46e5, #9333ea);
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
+    a.btn {
       text-decoration: none;
-      font-weight: 600;
-      transition: opacity 0.25s ease;
+      color: #fff;
+      border: 2px solid #00e0ff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #00e0ff77;
     }
-    a.button:hover {
-      opacity: 0.8;
+    a.btn:hover {
+      background: linear-gradient(90deg, #00e0ff, #ff00ff);
+      box-shadow: 0 0 20px #00e0ff;
+      transform: scale(1.05);
     }
     footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.8rem;
-      opacity: 0.5;
+      border-top: 1px solid #222;
+      padding: 2rem 0;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .buttons { flex-direction: column; }
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="YOUR_BANNER_URL_HERE" alt="ChillDipperz Banner">
+  </header>
+
   <main>
-    <h1>Welcome to the Chill Zone</h1>
-    <p>
-      A memetic experiment in serenity and leverage.<br />
-      Born somewhere between the dip and enlightenment.<br />
-      No roadmap. No promises. Only chill.
-    </p>
-    <a class="button" href="https://x.com/ChillDipperz" target="_blank">Follow on X</a>
+    <h1>Welcome to ChillDipperz</h1>
+    <p class="tagline">Don’t panic. Dip. Chill. Repeat.</p>
+
+    <div class="buttons">
+      <a href="https://twitter.com/chilldipperZ" target="_blank" class="btn">Follow on Twitter</a>
+      <a href="#" target="_blank" class="btn">View on OpenSea</a>
+    </div>
+
+    <p>A 10,000-piece meme-driven pixel collection of chill dippers buying the dip on Base & Ethereum.</p>
   </main>
-  <footer>© 2025 ChillDipperz | All vibes reserved</footer>
+
+  <footer>
+    © 2025 ChillDipperz — Stay Chill.
+  </footer>
 </body>
 </html>
