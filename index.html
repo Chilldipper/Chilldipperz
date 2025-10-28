@@ -15,23 +15,50 @@
       text-align: center;
       overflow-x: hidden;
     }
+
+    /* Fade-in for the whole page */
+    body, header img, h1, p, .buttons, footer {
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+    }
+    header img { animation-delay: 0.2s; }
+    h1 { animation-delay: 0.8s; }
+    p.tagline { animation-delay: 1.2s; }
+    .buttons { animation-delay: 1.6s; }
+    footer { animation-delay: 2s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     header img {
       width: 100%;
       max-height: 400px;
       object-fit: cover;
       box-shadow: 0 0 30px #00ccff33;
+      margin-bottom: 2rem;
     }
+
+    /* Neon glowing header with pulse */
     h1 {
       font-size: 2.5rem;
       margin-top: 1rem;
       color: #00e0ff;
       text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
+      animation: pulse 3s infinite ease-in-out;
     }
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
+      50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
+    }
+
     p.tagline {
       font-size: 1.2rem;
       color: #ccc;
       margin-bottom: 2rem;
     }
+
     .buttons {
       display: flex;
       justify-content: center;
@@ -52,12 +79,14 @@
       box-shadow: 0 0 20px #00e0ff;
       transform: scale(1.05);
     }
+
     footer {
       border-top: 1px solid #222;
       padding: 2rem 0;
       color: #888;
       font-size: 0.9rem;
     }
+
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       .buttons { flex-direction: column; }
