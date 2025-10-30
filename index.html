@@ -232,92 +232,96 @@
         alert("Please install MetaMask to connect your wallet!");
       }
     }
+  <!-- Load ethers.js first -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js" defer></script>
 
-     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-  <script>
-    const connectBtn = document.getElementById('connectBtn');
-    const mintBtn = document.getElementById('mintBtn');
-    const statusText = document.getElementById('status');
-    let provider, signer;
+  <!-- Your minting script -->
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const connectBtn = document.getElementById('connectBtn');
+      const mintBtn = document.getElementById('mintBtn');
+      const statusText = document.getElementById('status');
+      let provider, signer;
 
-    async function connectWallet() {
-      if (typeof window.ethereum === "undefined") {
-        alert("MetaMask not detected. Please install or enable it!");
-        return;
-      }
-
-      try {
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        signer = provider.getSigner();
-        const address = await signer.getAddress();
-
-        const network = await provider.getNetwork();
-        if (network.chainId !== 8453) { // 8453 = Base Mainnet
-          statusText.textContent = "⚠️ Please switch MetaMask to Base Mainnet.";
+      async function connectWallet() {
+        if (typeof window.ethereum === "undefined") {
+          alert("MetaMask not detected. Please install or enable it!");
           return;
         }
 
-        statusText.textContent = `✅ Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
-        connectBtn.textContent = "Connected";
-        connectBtn.disabled = true;
-        mintBtn.disabled = false;
-      } catch (err) {
-        console.error("Connection error:", err);
-        statusText.textContent = "❌ Connection failed: " + err.message;
-      }
-    }
+        try {
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          await provider.send("eth_requestAccounts", []);
+          signer = provider.getSigner();
+          const address = await signer.getAddress();
 
-    async function mintNFT() {
-      try {
-        const contractAddress = "0xE81e227f2d32836Ed92Dd374967b07F10437C485";
-        const abi = [
-          {
-            "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
-            "name": "mint",
-            "outputs": [],
-            "stateMutability": "payable",
-            "type": "function"
-          },
-          {
-            "inputs": [],
-            "name": "withdraw",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-          },
-          {
-            "inputs": [{ "internalType": "string", "name": "_newBaseURI", "type": "string" }],
-            "name": "setBaseURI",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-          },
-          {
-            "inputs": [],
-            "name": "totalSupply",
-            "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-            "stateMutability": "view",
-            "type": "function"
+          const network = await provider.getNetwork();
+          if (network.chainId !== 8453) { // Base Mainnet
+            statusText.textContent = "⚠️ Please switch MetaMask to Base Mainnet.";
+            return;
           }
-        ];
 
-        const contract = new ethers.Contract(contractAddress, abi, signer);
-        const tx = await contract.mint(1, {
-          value: ethers.utils.parseEther("0.0025")
-        });
-
-        statusText.textContent = "⏳ Minting your ChillDipper...";
-        await tx.wait();
-        statusText.textContent = "✅ Mint successful! Check your wallet or BaseScan.";
-      } catch (err) {
-        console.error(err);
-        statusText.textContent = "❌ Mint failed: " + err.message;
+          statusText.textContent = `✅ Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
+          connectBtn.textContent = "Connected";
+          connectBtn.disabled = true;
+          mintBtn.disabled = false;
+        } catch (err) {
+          console.error("Connection error:", err);
+          statusText.textContent = "❌ Connection failed: " + err.message;
+        }
       }
-    }
 
-    connectBtn.addEventListener("click", connectWallet);
-    mintBtn.addEventListener("click", mintNFT);
+      async function mintNFT() {
+        try {
+          const contractAddress = "0xE81e227f2d32836Ed92Dd374967b07F10437C485";
+          const abi = [
+            {
+              "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
+              "name": "mint",
+              "outputs": [],
+              "stateMutability": "payable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "withdraw",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [{ "internalType": "string", "name": "_newBaseURI", "type": "string" }],
+              "name": "setBaseURI",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "totalSupply",
+              "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+              "stateMutability": "view",
+              "type": "function"
+            }
+          ];
+
+          const contract = new ethers.Contract(contractAddress, abi, signer);
+          const tx = await contract.mint(1, {
+            value: ethers.utils.parseEther("0.0025")
+          });
+
+          statusText.textContent = "⏳ Minting your ChillDipper...";
+          await tx.wait();
+          statusText.textContent = "✅ Mint successful! Check your wallet or BaseScan.";
+        } catch (err) {
+          console.error(err);
+          statusText.textContent = "❌ Mint failed: " + err.message;
+        }
+      }
+
+      connectBtn.addEventListener("click", connectWallet);
+      mintBtn.addEventListener("click", mintNFT);
+    });
   </script>
 </body>
 </html>
