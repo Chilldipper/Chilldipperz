@@ -17,17 +17,7 @@
     }
 
     .fade-block { opacity: 1; animation: fadeIn 1.2s ease forwards; }
-    header img.fade-block { animation-delay: 0.2s; }
-    h1.fade-block { animation-delay: 0.8s; }
-    p.tagline.fade-block { animation-delay: 1.2s; }
-    .buttons.fade-block { animation-delay: 1.6s; }
-    p.about.fade-block { animation-delay: 1.8s; }
-    footer.fade-block { animation-delay: 2s; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     header img {
       width: 100%;
@@ -44,7 +34,6 @@
       text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
       animation: pulse 3s infinite ease-in-out;
     }
-
     @keyframes pulse {
       0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
       50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
@@ -52,9 +41,7 @@
 
     p.tagline { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
 
-    .buttons {
-      display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem;
-    }
+    .buttons { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; }
 
     a.btn, button.btn {
       text-decoration: none; color: #fff; border: 2px solid #00e0ff;
@@ -114,10 +101,12 @@
     <section id="mint" class="fade-block" style="margin-top: 3rem;">
       <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">Mint Your ChillDipper</h2>
       <p style="color:#ccc;">Connect your wallet and mint directly from the site.</p>
+      <p id="price" style="color:#00e0ff; margin-top:0.5rem;">💰 Price: 0.0025 ETH each</p>
 
       <div style="margin-top:1.5rem;">
         <label for="mintAmount" style="color:#00e0ff;">Amount:</label>
         <input type="number" id="mintAmount" value="1" min="1" max="10">
+        <p id="totalCost" style="color:#aaa; margin-top:0.5rem;">Total: 0.0025 ETH</p>
       </div>
 
       <div style="margin-top:1.5rem;">
@@ -183,20 +172,36 @@
       const mintAmount = document.getElementById('mintAmount');
       const statusText = document.getElementById('status');
       const supplyText = document.getElementById('supply');
+      const totalCostText = document.getElementById('totalCost');
       let provider, signer, contract;
 
       const contractAddress = "0xE81e227f2d32836Ed92Dd374967b07F10437C485";
       const abi = [
-        { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "mint", "outputs": [], "stateMutability": "payable", "type": "function" },
-        { "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }
+        {
+          "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
+          "name": "mint", "outputs": [], "stateMutability": "payable", "type": "function"
+        },
+        {
+          "inputs": [], "name": "totalSupply",
+          "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+          "stateMutability": "view", "type": "function"
+        }
       ];
+
+      const MINT_PRICE_WEI = ethers.utils.parseEther("0.0025");
+
+      function updateTotalCost() {
+        const amount = parseInt(mintAmount.value, 10) || 1;
+        const totalEth = (0.0025 * amount).toFixed(4);
+        totalCostText.textContent = `Total: ${totalEth} ETH`;
+      }
 
       async function updateSupply() {
         try {
           if (!contract) return;
           const total = await contract.totalSupply();
           supplyText.textContent = `Total Minted: ${total.toString()} / 10,000`;
-        } catch (err) {
+        } catch {
           supplyText.textContent = "Total Minted: — / 10,000";
         }
       }
@@ -222,6 +227,7 @@
           connectBtn.textContent = "Connected";
           connectBtn.disabled = true;
           mintBtn.disabled = false;
+
           await updateSupply();
         } catch (err) {
           console.error(err);
@@ -231,22 +237,27 @@
 
       async function mintNFT() {
         try {
-          const amount = parseInt(mintAmount.value);
-          if (amount < 1 || amount > 10) return alert("Mint between 1 and 10 NFTs");
-          const price = ethers.utils.parseEther((0.0025 * amount).toString());
-          const tx = await contract.mint(amount, { value: price });
+          const amount = parseInt(mintAmount.value, 10);
+          if (isNaN(amount) || amount < 1 || amount > 10)
+            return alert("Mint between 1 and 10 NFTs");
+
+          const totalValue = MINT_PRICE_WEI.mul(amount);
+          const tx = await contract.mint(amount, { value: totalValue });
+
           statusText.textContent = "⏳ Minting your ChillDipper...";
           await tx.wait();
           statusText.textContent = "✅ Mint successful! Check your wallet or BaseScan.";
           await updateSupply();
         } catch (err) {
           console.error(err);
-          statusText.textContent = "❌ Mint failed: " + err.message;
+          statusText.textContent = "❌ Mint failed: " + (err?.data?.message || err.message);
         }
       }
 
+      mintAmount.addEventListener("input", updateTotalCost);
       connectBtn.addEventListener("click", connectWallet);
       mintBtn.addEventListener("click", mintNFT);
+      updateTotalCost();
     });
   </script>
 </body>
