@@ -234,21 +234,58 @@
     }
 
     async function mintNFT() {
-      try {
-        const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
-        const abi = []; // You’ll paste your contract ABI here later
-        const contract = new ethers.Contract(contractAddress, abi, signer);
+  try {
+    // ✅ Contract details
+    const contractAddress = "0xE81e227f2d32836Ed92Dd374967b07F10437C485"; // Base Mainnet contract
 
-        // Placeholder until contract is live
-        statusText.textContent = "Mint function placeholder – contract not live yet.";
-      } catch (err) {
-        console.error(err);
-        statusText.textContent = "Mint failed: " + err.message;
+    // ✅ ABI (copied from Remix)
+    const abi = [
+      {
+        "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
+        "name": "mint",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [{ "internalType": "string", "name": "_newBaseURI", "type": "string" }],
+        "name": "setBaseURI",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
       }
-    }
+    ];
 
-    connectBtn.addEventListener('click', connectWallet);
-    mintBtn.addEventListener('click', mintNFT);
-  </script>
-</body>
-</html>
+    // ✅ Create contract instance
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    // ✅ Mint 1 NFT at 0.0025 ETH
+    const tx = await contract.mint(1, {
+      value: ethers.utils.parseEther("0.0025")
+    });
+
+    statusText.textContent = "⏳ Minting your ChillDipper...";
+    await tx.wait();
+    statusText.textContent = "✅ Mint successful! Check your wallet or BaseScan.";
+  } catch (err) {
+    console.error(err);
+    statusText.textContent = "❌ Mint failed: " + err.message;
+  }
+}
+
+connectBtn.addEventListener("click", connectWallet);
+mintBtn.addEventListener("click", mintNFT);
