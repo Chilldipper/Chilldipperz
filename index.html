@@ -16,10 +16,12 @@
       overflow-x: hidden;
     }
 
+    /* Keep everything visible + fade effect */
     .fade-block {
       opacity: 1;
       animation: fadeIn 1.2s ease forwards;
     }
+
     header img.fade-block { animation-delay: 0.2s; }
     h1.fade-block { animation-delay: 0.8s; }
     p.tagline.fade-block { animation-delay: 1.2s; }
@@ -49,12 +51,8 @@
     }
 
     @keyframes pulse {
-      0%, 100% {
-        text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
-      }
-      50% {
-        text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff;
-      }
+      0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
+      50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
     }
 
     p.tagline {
@@ -130,6 +128,7 @@
     </div>
 
     <p class="about fade-block">
+      A 10,000-piece meme-driven pixel collection of chill dippers.<br>
       Born to dip. Forced to chill. When the chart bleeds, the chill begins.
     </p>
 
@@ -144,6 +143,49 @@
       </div>
 
       <p id="status" style="color:#888;margin-top:1rem;font-size:0.9rem;">Wallet not connected</p>
+    </section>
+
+    <!-- LORE SECTION -->
+    <section id="lore" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Lore</h2>
+      <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
+        In the ancient charts of crypto chaos, there rose a tribe unlike any other.
+        When the candles burned red and timelines screamed, they didn’t panic.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        They took deep breaths, grabbed their wallets, and whispered the sacred mantra:
+        <span style="color:#00e0ff;">“Buy the dip. Chill the trip.”</span>
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        These were the <strong>ChillDipperz</strong> — 10,000 souls forged in market volatility.
+        They meditate through liquidation, they meme through the madness, and they see opportunity
+        where others see doom.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        Across chains and bear markets, they wander… stacking dips, chilling harder,
+        and waiting for the next cosmic pump.
+      </p>
+      <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
+        The charts may bleed. The chill remains.
+      </p>
+    </section>
+
+    <!-- THE VIBE SECTION -->
+    <section id="vibe" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Vibe</h2>
+      <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
+        We’re not building a roadmap. We’re building a mood.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        No promises, no utilities, just vibes, memes, and questionable market timing.
+      </p>
+      <p style="color:#ccc; line-height:1.6rem;">
+        We don’t chase pumps — we chill in the dumps.  
+        When everyone screams “exit,” we’re already buying the dip.
+      </p>
+      <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
+        The mission: <strong>Keep the market cold. Keep the holders chill.</strong>
+      </p>
     </section>
   </main>
 
