@@ -16,12 +16,7 @@
       overflow-x: hidden;
     }
 
-    /* Keep everything visible + fade effect */
-    .fade-block {
-      opacity: 1;
-      animation: fadeIn 1.2s ease forwards;
-    }
-
+    .fade-block { opacity: 1; animation: fadeIn 1.2s ease forwards; }
     header img.fade-block { animation-delay: 0.2s; }
     h1.fade-block { animation-delay: 0.8s; }
     p.tagline.fade-block { animation-delay: 1.2s; }
@@ -55,54 +50,37 @@
       50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
     }
 
-    p.tagline {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 2rem;
-    }
+    p.tagline { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
 
     .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem;
     }
 
     a.btn, button.btn {
-      text-decoration: none;
-      color: #fff;
-      border: 2px solid #00e0ff;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      transition: 0.3s;
-      box-shadow: 0 0 10px #00e0ff77;
-      background: transparent;
-      font-family: 'Orbitron', sans-serif;
-      cursor: pointer;
+      text-decoration: none; color: #fff; border: 2px solid #00e0ff;
+      padding: 0.8rem 1.5rem; border-radius: 50px; transition: 0.3s;
+      box-shadow: 0 0 10px #00e0ff77; background: transparent;
+      font-family: 'Orbitron', sans-serif; cursor: pointer;
     }
 
     a.btn:hover, button.btn:hover {
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
-      box-shadow: 0 0 20px #00e0ff;
-      transform: scale(1.05);
+      box-shadow: 0 0 20px #00e0ff; transform: scale(1.05);
+    }
+
+    input#mintAmount {
+      width: 60px; text-align: center; border-radius: 6px;
+      padding: 0.3rem; border: 1px solid #00e0ff; background: #000;
+      color: #00e0ff; font-family: 'Orbitron', sans-serif;
     }
 
     p.about {
-      color: #ccc;
-      max-width: 900px;
-      margin: 0 auto 2rem auto;
-      line-height: 1.4rem;
-      font-size: 0.9rem;
-      padding: 0 1rem;
+      color: #ccc; max-width: 900px; margin: 0 auto 2rem auto;
+      line-height: 1.4rem; font-size: 0.9rem; padding: 0 1rem;
       text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
     }
 
-    footer {
-      border-top: 1px solid #222;
-      padding: 2rem 0;
-      color: #888;
-      font-size: 0.9rem;
-    }
+    footer { border-top: 1px solid #222; padding: 2rem 0; color: #888; font-size: 0.9rem; }
 
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
@@ -138,11 +116,17 @@
       <p style="color:#ccc;">Connect your wallet and mint directly from the site.</p>
 
       <div style="margin-top:1.5rem;">
+        <label for="mintAmount" style="color:#00e0ff;">Amount:</label>
+        <input type="number" id="mintAmount" value="1" min="1" max="10">
+      </div>
+
+      <div style="margin-top:1.5rem;">
         <button id="connectBtn" class="btn">Connect Wallet</button>
         <button id="mintBtn" class="btn" disabled>Mint NFT</button>
       </div>
 
-      <p id="status" style="color:#888;margin-top:1rem;font-size:0.9rem;">Wallet not connected</p>
+      <p id="supply" style="color:#00e0ff; margin-top:1rem; font-size:0.95rem;">Total Minted: … / 10,000</p>
+      <p id="status" style="color:#888;margin-top:0.5rem;font-size:0.9rem;">Wallet not connected</p>
     </section>
 
     <!-- LORE SECTION -->
@@ -158,7 +142,7 @@
       </p>
       <p style="color:#ccc; line-height:1.6rem;">
         These were the <strong>ChillDipperz</strong> — 10,000 souls forged in market volatility.
-        They meditate through liquidation, they meme through the madness, and they see opportunity
+        They meditate through liquidation, meme through the madness, and see opportunity
         where others see doom.
       </p>
       <p style="color:#ccc; line-height:1.6rem;">
@@ -189,78 +173,72 @@
     </section>
   </main>
 
-  <footer class="fade-block">
-    © 2025 ChillDipperz — Stay Chill.
-  </footer>
+  <footer class="fade-block">© 2025 ChillDipperz — Stay Chill.</footer>
 
-  <!-- Load ethers.js before main script -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const connectBtn = document.getElementById('connectBtn');
       const mintBtn = document.getElementById('mintBtn');
+      const mintAmount = document.getElementById('mintAmount');
       const statusText = document.getElementById('status');
-      let provider, signer;
+      const supplyText = document.getElementById('supply');
+      let provider, signer, contract;
+
+      const contractAddress = "0xE81e227f2d32836Ed92Dd374967b07F10437C485";
+      const abi = [
+        { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "mint", "outputs": [], "stateMutability": "payable", "type": "function" },
+        { "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }
+      ];
+
+      async function updateSupply() {
+        try {
+          if (!contract) return;
+          const total = await contract.totalSupply();
+          supplyText.textContent = `Total Minted: ${total.toString()} / 10,000`;
+        } catch (err) {
+          supplyText.textContent = "Total Minted: — / 10,000";
+        }
+      }
 
       async function connectWallet() {
-        if (typeof window.ethereum === "undefined") {
-          alert("MetaMask not detected. Please install or enable it!");
-          return;
-        }
-
+        if (!window.ethereum) return alert("Please install MetaMask!");
         try {
           provider = new ethers.providers.Web3Provider(window.ethereum);
           await provider.send("eth_requestAccounts", []);
           signer = provider.getSigner();
-          const address = await signer.getAddress();
 
           const network = await provider.getNetwork();
-          if (network.chainId !== 8453) { // Base Mainnet
-            try {
-              await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x2105" }],
-              });
-              statusText.textContent = "🔄 Switched to Base. Please reconnect.";
-              return;
-            } catch (switchError) {
-              statusText.textContent = "⚠️ Switch MetaMask to Base Mainnet.";
-              return;
-            }
+          if (network.chainId !== 8453) {
+            await window.ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: "0x2105" }],
+            });
           }
 
+          contract = new ethers.Contract(contractAddress, abi, signer);
+          const address = await signer.getAddress();
           statusText.textContent = `✅ Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
           connectBtn.textContent = "Connected";
           connectBtn.disabled = true;
           mintBtn.disabled = false;
+          await updateSupply();
         } catch (err) {
-          console.error("Connection error:", err);
+          console.error(err);
           statusText.textContent = "❌ Connection failed: " + err.message;
         }
       }
 
       async function mintNFT() {
         try {
-          const contractAddress = "0xE81e227f2d32836Ed92Dd374967b07F10437C485";
-          const abi = [
-            {
-              "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
-              "name": "mint",
-              "outputs": [],
-              "stateMutability": "payable",
-              "type": "function"
-            }
-          ];
-
-          const contract = new ethers.Contract(contractAddress, abi, signer);
-          const tx = await contract.mint(1, {
-            value: ethers.utils.parseEther("0.0025")
-          });
-
+          const amount = parseInt(mintAmount.value);
+          if (amount < 1 || amount > 10) return alert("Mint between 1 and 10 NFTs");
+          const price = ethers.utils.parseEther((0.0025 * amount).toString());
+          const tx = await contract.mint(amount, { value: price });
           statusText.textContent = "⏳ Minting your ChillDipper...";
           await tx.wait();
-          statusText.textContent = "✅ Mint successful! Check BaseScan or your wallet.";
+          statusText.textContent = "✅ Mint successful! Check your wallet or BaseScan.";
+          await updateSupply();
         } catch (err) {
           console.error(err);
           statusText.textContent = "❌ Mint failed: " + err.message;
