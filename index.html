@@ -16,7 +16,6 @@
       overflow-x: hidden;
     }
 
-    /* Fade-in for the whole page */
     .fade-block {
       opacity: 0;
       animation: fadeIn 1.2s ease forwards;
@@ -41,7 +40,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Neon glowing header with pulse */
     h1 {
       font-size: 2.5rem;
       margin-top: 1rem;
@@ -49,6 +47,7 @@
       text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
       animation: pulse 3s infinite ease-in-out;
     }
+
     @keyframes pulse {
       0%, 100% {
         text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
@@ -98,16 +97,6 @@
       font-size: 0.9rem;
       padding: 0 1rem;
       text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
-      animation: textPulse 4s ease-in-out infinite;
-    }
-
-    @keyframes textPulse {
-      0%, 100% {
-        text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
-      }
-      50% {
-        text-shadow: 0 0 12px #00e0ff, 0 0 24px #ff00ff;
-      }
     }
 
     footer {
@@ -123,13 +112,12 @@
     }
   </style>
 </head>
+
 <body>
   <header>
-    <img
-      class="fade-block"
+    <img class="fade-block"
       src="https://raw.githubusercontent.com/Chilldipper/Chilldipperz/main/Chilldipper%20banner.png"
-      alt="ChillDipperz Banner"
-    >
+      alt="ChillDipperz Banner">
   </header>
 
   <main>
@@ -138,7 +126,7 @@
 
     <div class="buttons fade-block">
       <a href="https://twitter.com/chilldipperZ" target="_blank" class="btn">Follow on Twitter</a>
-      <a href="#" target="_blank" class="btn">https://opensea.io/collection/chilldipperz</a>
+      <a href="https://opensea.io/collection/chilldipperz" target="_blank" class="btn">View on OpenSea</a>
     </div>
 
     <p class="about fade-block">
@@ -157,87 +145,17 @@
 
       <p id="status" style="color:#888;margin-top:1rem;font-size:0.9rem;">Wallet not connected</p>
     </section>
-
-    <!-- LORE SECTION -->
-    <section id="lore" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
-      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Lore</h2>
-      <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
-        In the ancient charts of crypto chaos, there rose a tribe unlike any other.
-        When the candles burned red and timelines screamed, they didn’t panic.
-      </p>
-      <p style="color:#ccc; line-height:1.6rem;">
-        They took deep breaths, grabbed their wallets, and whispered the sacred mantra:
-        <span style="color:#00e0ff;">“Buy the dip. Chill the trip.”</span>
-      </p>
-      <p style="color:#ccc; line-height:1.6rem;">
-        These were the <strong>ChillDipperz</strong> — 10,000 souls forged in market volatility.
-        They meditate through liquidation, they meme through the madness, and they see opportunity
-        where others see doom.
-      </p>
-      <p style="color:#ccc; line-height:1.6rem;">
-        Across chains and bear markets, they wander… stacking dips, chilling harder,
-        and waiting for the next cosmic pump.
-      </p>
-      <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
-        The charts may bleed. The chill remains.
-      </p>
-    </section>
-
-    <!-- THE VIBE SECTION -->
-    <section id="vibe" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
-      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Vibe</h2>
-      <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
-        We’re not building a roadmap. We’re building a mood.
-      </p>
-      <p style="color:#ccc; line-height:1.6rem;">
-        No promises, no utilities, just vibes, memes, and questionable market timing.
-      </p>
-      <p style="color:#ccc; line-height:1.6rem;">
-        We don’t chase pumps — we chill in the dumps.  
-        When everyone screams “exit,” we’re already buying the dip.
-      </p>
-      <p style="color:#00e0ff; text-shadow:0 0 8px #00e0ff, 0 0 16px #ff00ff; margin-top:2rem;">
-        The mission: <strong>Keep the market cold. Keep the holders chill.</strong>
-      </p>
-    </section>
   </main>
 
   <footer class="fade-block">
     © 2025 ChillDipperz — Stay Chill.
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <!-- Load ethers.js before main script -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
   <script>
-    const connectBtn = document.getElementById('connectBtn');
-    const mintBtn = document.getElementById('mintBtn');
-    const statusText = document.getElementById('status');
-    let provider, signer;
-
-    async function connectWallet() {
-      if (window.ethereum) {
-        try {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);
-          signer = provider.getSigner();
-          const address = await signer.getAddress();
-          statusText.textContent = `Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
-          connectBtn.textContent = "Connected";
-          connectBtn.disabled = true;
-          mintBtn.disabled = false;
-        } catch (err) {
-          console.error(err);
-          statusText.textContent = "Connection failed.";
-        }
-      } else {
-        alert("Please install MetaMask to connect your wallet!");
-      }
-    }
-  <!-- Load ethers.js first -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js" defer></script>
-
-  <!-- Your minting script -->
-  <script defer>
-    document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("DOMContentLoaded", () => {
       const connectBtn = document.getElementById('connectBtn');
       const mintBtn = document.getElementById('mintBtn');
       const statusText = document.getElementById('status');
@@ -257,8 +175,17 @@
 
           const network = await provider.getNetwork();
           if (network.chainId !== 8453) { // Base Mainnet
-            statusText.textContent = "⚠️ Please switch MetaMask to Base Mainnet.";
-            return;
+            try {
+              await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x2105" }],
+              });
+              statusText.textContent = "🔄 Switched to Base. Please reconnect.";
+              return;
+            } catch (switchError) {
+              statusText.textContent = "⚠️ Switch MetaMask to Base Mainnet.";
+              return;
+            }
           }
 
           statusText.textContent = `✅ Connected: ${address.slice(0,6)}...${address.slice(-4)}`;
@@ -281,27 +208,6 @@
               "outputs": [],
               "stateMutability": "payable",
               "type": "function"
-            },
-            {
-              "inputs": [],
-              "name": "withdraw",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [{ "internalType": "string", "name": "_newBaseURI", "type": "string" }],
-              "name": "setBaseURI",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [],
-              "name": "totalSupply",
-              "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-              "stateMutability": "view",
-              "type": "function"
             }
           ];
 
@@ -312,7 +218,7 @@
 
           statusText.textContent = "⏳ Minting your ChillDipper...";
           await tx.wait();
-          statusText.textContent = "✅ Mint successful! Check your wallet or BaseScan.";
+          statusText.textContent = "✅ Mint successful! Check BaseScan or your wallet.";
         } catch (err) {
           console.error(err);
           statusText.textContent = "❌ Mint failed: " + err.message;
