@@ -15,10 +15,8 @@
       text-align: center;
       overflow-x: hidden;
     }
-
     .fade-block { opacity: 1; animation: fadeIn 1.2s ease forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     header img {
       width: 100%;
       max-height: 400px;
@@ -26,7 +24,6 @@
       box-shadow: 0 0 30px #00ccff33;
       margin-bottom: 2rem;
     }
-
     h1 {
       font-size: 2.5rem;
       margin-top: 1rem;
@@ -38,37 +35,29 @@
       0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
       50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
     }
-
     p.tagline { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
-
     .buttons { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; }
-
     a.btn, button.btn {
       text-decoration: none; color: #fff; border: 2px solid #00e0ff;
       padding: 0.8rem 1.5rem; border-radius: 50px; transition: 0.3s;
       box-shadow: 0 0 10px #00e0ff77; background: transparent;
       font-family: 'Orbitron', sans-serif; cursor: pointer;
     }
-
     a.btn:hover, button.btn:hover {
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
       box-shadow: 0 0 20px #00e0ff; transform: scale(1.05);
     }
-
     input#mintAmount {
       width: 60px; text-align: center; border-radius: 6px;
       padding: 0.3rem; border: 1px solid #00e0ff; background: #000;
       color: #00e0ff; font-family: 'Orbitron', sans-serif;
     }
-
     p.about {
       color: #ccc; max-width: 900px; margin: 0 auto 2rem auto;
       line-height: 1.4rem; font-size: 0.9rem; padding: 0 1rem;
       text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
     }
-
     footer { border-top: 1px solid #222; padding: 2rem 0; color: #888; font-size: 0.9rem; }
-
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       .buttons { flex-direction: column; }
@@ -82,158 +71,24 @@
       src="https://raw.githubusercontent.com/Chilldipper/Chilldipperz/main/Chilldipper%20banner.png"
       alt="ChillDipperz Banner">
   </header>
-<!-- GALLERY SECTION -->
-<section id="gallery" class="fade-block" style="margin:5rem auto; max-width:1000px; padding:0 1rem;">
-  <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff, 0 0 24px #ff00ff; margin-bottom:2rem;">
-    The Chill Gallery
-  </h2>
-  <div id="nftGallery" style="
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    justify-items: center;
-  "></div>
-</section>
 
-<script>
-const galleryContainer = document.getElementById("nftGallery");
-const collectionSlug = "chilldipperz"; // ✅ exact lowercase OpenSea slug
-
-async function loadGallery() {
-  try {
-    if (!galleryContainer) return;
-
-    galleryContainer.innerHTML = "<p style='color:#888;'>Loading ChillDipperz...</p>";
-
-    // ✅ Fetch NFTs from OpenSea (Base chain)
-    const response = await fetch(
-      `https://api.opensea.io/api/v2/chain/base/collection/${collectionSlug}/nfts?limit=9`
-    );
-
-    const data = await response.json();
-
-    if (!data.nfts || data.nfts.length === 0) {
-      galleryContainer.innerHTML =
-        "<p style='color:#888;'>No NFTs found in the collection yet.</p>";
-      return;
-    }
-
-    // ✅ Clear and render gallery
-    galleryContainer.innerHTML = "";
-    data.nfts.forEach(nft => {
-      const wrapper = document.createElement("a");
-      wrapper.href =
-        nft.opensea_url ||
-        `https://opensea.io/assets/base/${nft.contract}/${nft.identifier}`;
-      wrapper.target = "_blank";
-      wrapper.style = "text-decoration:none;display:block;";
-
-      const img = document.createElement("img");
-      img.src = nft.image_url || nft.preview_image_url || "";
-      img.alt = nft.name || "ChillDipperz";
-      img.loading = "lazy";
-      img.style = `
-        width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 0 20px #00e0ff66;
-        transition: 0.3s;
-        cursor: pointer;
-      `;
-      img.onmouseover = () => (img.style.transform = "scale(1.05)");
-      img.onmouseout = () => (img.style.transform = "scale(1)");
-
-      const caption = document.createElement("p");
-      caption.textContent = nft.name || "ChillDipper";
-      caption.style = "margin-top:8px;color:#aaa;font-size:0.8rem;";
-
-      wrapper.appendChild(img);
-      wrapper.appendChild(caption);
-      galleryContainer.appendChild(wrapper);
-    });
-  } catch (err) {
-    console.error("Gallery load failed:", err);
-    galleryContainer.innerHTML =
-      "<p style='color:#888;'>Could not load gallery. Try refreshing.</p>";
-  }
-}
-
-// ✅ Run automatically when page loads
-window.addEventListener("DOMContentLoaded", loadGallery);
-</script>
-    // ✅ Clear and build gallery
-    galleryContainer.innerHTML = "";
-    data.nfts.forEach((nft) => {
-      const wrapper = document.createElement("a");
-      wrapper.href =
-        nft.opensea_url ||
-        `https://opensea.io/assets/base/${nft.contract}/${nft.identifier}`;
-      wrapper.target = "_blank";
-      wrapper.style = "text-decoration:none;display:block;";
-
-      const img = document.createElement("img");
-      img.src = nft.image_url || nft.preview_image_url || "";
-      img.alt = nft.name || "ChillDipper";
-      img.loading = "lazy";
-      img.style =
-        "width:100%;border-radius:12px;box-shadow:0 0 20px #00e0ff66;transition:0.3s;cursor:pointer;";
-      img.onmouseover = () => (img.style.transform = "scale(1.05)");
-      img.onmouseout = () => (img.style.transform = "scale(1)");
-
-      const caption = document.createElement("p");
-      caption.textContent = nft.name || "ChillDipper";
-      caption.style = "margin-top:8px;color:#aaa;font-size:0.8rem;";
-
-      wrapper.appendChild(img);
-      wrapper.appendChild(caption);
-      galleryContainer.appendChild(wrapper);
-    });
-  } catch (err) {
-    console.error("Gallery load failed:", err);
-    galleryContainer.innerHTML =
-      "<p style='color:#f66;'>Could not load gallery. Try refreshing.</p>";
-  }
-}
-
-// ✅ Load once the page is ready
-window.addEventListener("DOMContentLoaded", loadGallery);
-</script>
-
-      const wrapper = document.createElement("a");
-      wrapper.href = nft.opensea_url || `https://opensea.io/assets/base/${nft.contract}/` + nft.identifier;
-      wrapper.target = "_blank";
-      wrapper.style = "text-decoration:none;display:block;";
-
-      const img = document.createElement("img");
-      img.src = nft.image_url || nft.preview_image_url;
-      img.alt = nft.name || "ChillDipperz";
-      img.loading = "lazy";
-      img.style = `
-        width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 0 20px #00e0ff66;
-        transition: 0.3s;
-        cursor: pointer;
-      `;
-      img.onmouseover = () => (img.style.transform = "scale(1.05)");
-      img.onmouseout = () => (img.style.transform = "scale(1)");
-
-      const caption = document.createElement("p");
-      caption.textContent = nft.name || "ChillDipper";
-      caption.style = "margin-top:8px;color:#aaa;font-size:0.8rem;";
-
-      wrapper.appendChild(img);
-      wrapper.appendChild(caption);
-      galleryContainer.appendChild(wrapper);
-    });
-  } catch (err) {
-    console.error("Gallery load failed:", err);
-    galleryContainer.innerHTML = "<p style='color:#888;'>Could not load gallery. Try refreshing.</p>";
-  }
-}
-
-window.addEventListener("DOMContentLoaded", loadGallery);
-</script>
-
+  <!-- GALLERY SECTION -->
+  <section id="gallery" class="fade-block" style="margin:5rem auto; max-width:1000px; padding:0 1rem;">
+    <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff, 0 0 24px #ff00ff; margin-bottom:2rem;">
+      The Chill Gallery
+    </h2>
+    <div id="nftGallery" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      justify-items: center;
+    "></div>
+    <div style="margin-top:2rem;">
+      <a href="https://opensea.io/collection/chilldipperz" target="_blank" class="btn">
+        View full collection on OpenSea
+      </a>
+    </div>
+  </section>
 
   <main>
     <h1 class="fade-block">Welcome to ChillDipperz</h1>
@@ -316,7 +171,49 @@ window.addEventListener("DOMContentLoaded", loadGallery);
 
   <footer class="fade-block">© 2025 ChillDipperz — Stay Chill.</footer>
 
+  <!-- ethers -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <!-- static gallery JS -->
+  <script>
+    // 👇 put real image URLs when you have them
+    const galleryData = [
+      { name: "ChillDipper #1", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #2", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #3", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #4", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #5", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #6", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #7", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #8", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+      { name: "ChillDipper #9", img: "https://opensea.io/static/images/placeholder.png", link: "https://opensea.io/collection/chilldipperz" },
+    ];
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const gallery = document.getElementById("nftGallery");
+      gallery.innerHTML = "";
+      galleryData.forEach(nft => {
+        const a = document.createElement("a");
+        a.href = nft.link;
+        a.target = "_blank";
+        a.style = "text-decoration:none;display:block;";
+        const img = document.createElement("img");
+        img.src = nft.img;
+        img.alt = nft.name;
+        img.style = "width:100%;border-radius:12px;box-shadow:0 0 20px #00e0ff66;transition:0.3s;cursor:pointer;";
+        img.onmouseover = () => img.style.transform = "scale(1.05)";
+        img.onmouseout = () => img.style.transform = "scale(1)";
+        const p = document.createElement("p");
+        p.textContent = nft.name;
+        p.style = "margin-top:8px;color:#aaa;font-size:0.8rem;";
+        a.appendChild(img);
+        a.appendChild(p);
+        gallery.appendChild(a);
+      });
+    });
+  </script>
+
+  <!-- mint JS (your old working one) -->
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const connectBtn = document.getElementById('connectBtn');
@@ -389,9 +286,9 @@ window.addEventListener("DOMContentLoaded", loadGallery);
 
       async function mintNFT() {
         try {
-          const amount = parseInt(mintAmount.value, 10);
-          if (isNaN(amount) || amount < 1 || amount > 10)
-            return alert("Mint between 1 and 10 NFTs");
+          const amount = parseInt(mintAmount.value, 50);
+          if (isNaN(amount) || amount < 1 || amount > 50)
+            return alert("Mint between 1 and 50 NFTs");
 
           const totalValue = MINT_PRICE_WEI.mul(amount);
           const tx = await contract.mint(amount, { value: totalValue });
