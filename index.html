@@ -159,11 +159,6 @@ async function loadGallery() {
 window.addEventListener("DOMContentLoaded", loadGallery);
 </script>
 
-
-    // Clear the container
-    galleryContainer.innerHTML = "";
-
-    data.nfts.forEach(nft => {
       const wrapper = document.createElement("a");
       wrapper.href = nft.opensea_url || `https://opensea.io/assets/base/${nft.contract}/` + nft.identifier;
       wrapper.target = "_blank";
