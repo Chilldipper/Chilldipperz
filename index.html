@@ -94,12 +94,16 @@
     justify-items: center;
   "></div>
 </section>
+</section>
+
 <script>
 const galleryContainer = document.getElementById("nftGallery");
 const collectionSlug = "chilldipperz"; // ✅ exact lowercase OpenSea slug
+
 async function loadGallery() {
   try {
-    if
+    if (!galleryContainer) return;
+
     galleryContainer.innerHTML = "<p style='color:#888;'>Loading ChillDipperz...</p>";
 
     // ✅ Fetch NFTs from OpenSea (Base chain)
@@ -119,13 +123,14 @@ async function loadGallery() {
     galleryContainer.innerHTML = "";
     data.nfts.forEach(nft => {
       const wrapper = document.createElement("a");
-      wrapper.href = nft.opensea_url || 
+      wrapper.href =
+        nft.opensea_url ||
         `https://opensea.io/assets/base/${nft.contract}/${nft.identifier}`;
       wrapper.target = "_blank";
       wrapper.style = "text-decoration:none;display:block;";
 
       const img = document.createElement("img");
-      img.src = nft.image_url || nft.preview_image_url;
+      img.src = nft.image_url || nft.preview_image_url || "";
       img.alt = nft.name || "ChillDipperz";
       img.loading = "lazy";
       img.style = `
@@ -153,10 +158,9 @@ async function loadGallery() {
   }
 }
 
-loadGallery();
+// ✅ Run automatically when page loads
+window.addEventListener("DOMContentLoaded", loadGallery);
 </script>
-
-
     // ✅ Clear and build gallery
     galleryContainer.innerHTML = "";
     data.nfts.forEach((nft) => {
