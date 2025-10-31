@@ -97,40 +97,63 @@
 
 <script>
 const galleryContainer = document.getElementById("nftGallery");
-const baseImage = "https://gateway.lighthouse.storage/ipfs/bafybeihxcnchgxo36sam22zjpown7vnd5xevh5xdkyhzrdg7ulgelru4cy/";
-const baseMetadata = "https://gateway.lighthouse.storage/ipfs/bafybeihxcnchgxo36sam22zjpown7vnd5xevh5xdkyhzrdg7ulgelru4cy/";
+const collectionSlug = "chilldipperz"; // your OpenSea slug
 
-function loadGallery() {
-  galleryContainer.innerHTML = "";
-  const totalToShow = 9;
-  const randomStart = Math.floor(Math.random() * 10000) + 1;
+async function loadGallery() {
+  try {
+    if (!galleryContainer) return;
 
-  for (let i = 0; i < totalToShow; i++) {
-    const id = (randomStart + i) % 10000 || 1;
-    const wrapper = document.createElement("a");
-    wrapper.href = `${baseMetadata}${id}.json`;
-    wrapper.target = "_blank";
-    wrapper.style = "text-decoration:none;";
+    galleryContainer.innerHTML = "<p style='color:#888;'>Loading ChillDipperz...</p>";
 
-    const img = document.createElement("img");
-    img.src = `${baseImage}${id}.png`;
-    img.alt = `ChillDipper #${id}`;
-    img.loading = "lazy";
-    img.style = `
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #00e0ff66;
-      transition: 0.3s;
-      cursor: pointer;
-    `;
-    img.onmouseover = () => (img.style.transform = "scale(1.05)");
-    img.onmouseout = () => (img.style.transform = "scale(1)");
-    wrapper.appendChild(img);
-    galleryContainer.appendChild(wrapper);
+    // Fetch NFTs from OpenSea (Base chain)
+    const response = await fetch(`https://api.opensea.io/api/v2/chain/base/collection/${collectionSlug}/nfts?limit=9`);
+    const data = await response.json();
+
+    if (!data.nfts || data.nfts.length === 0) {
+      galleryContainer.innerHTML = "<p style='color:#888;'>No NFTs found in the collection yet.</p>";
+      return;
+    }
+
+    // Clear the container
+    galleryContainer.innerHTML = "";
+
+    data.nfts.forEach(nft => {
+      const wrapper = document.createElement("a");
+      wrapper.href = nft.opensea_url || `https://opensea.io/assets/base/${nft.contract}/` + nft.identifier;
+      wrapper.target = "_blank";
+      wrapper.style = "text-decoration:none;display:block;";
+
+      const img = document.createElement("img");
+      img.src = nft.image_url || nft.preview_image_url;
+      img.alt = nft.name || "ChillDipper";
+      img.loading = "lazy";
+      img.style = `
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #00e0ff66;
+        transition: 0.3s;
+        cursor: pointer;
+      `;
+      img.onmouseover = () => (img.style.transform = "scale(1.05)");
+      img.onmouseout = () => (img.style.transform = "scale(1)");
+
+      const caption = document.createElement("p");
+      caption.textContent = nft.name || "ChillDipper";
+      caption.style = "margin-top:8px;color:#aaa;font-size:0.8rem;";
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(caption);
+      galleryContainer.appendChild(wrapper);
+    });
+  } catch (err) {
+    console.error("Gallery load failed:", err);
+    galleryContainer.innerHTML = "<p style='color:#888;'>Could not load gallery. Try refreshing.</p>";
   }
 }
-loadGallery();
+
+window.addEventListener("DOMContentLoaded", loadGallery);
 </script>
+
 
   <main>
     <h1 class="fade-block">Welcome to ChillDipperz</h1>
