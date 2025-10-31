@@ -94,17 +94,12 @@
     justify-items: center;
   "></div>
 </section>
-
-</section>
-
 <script>
 const galleryContainer = document.getElementById("nftGallery");
-const collectionSlug = "chilldipperz"; // ✅ lowercase slug from OpenSea URL
-
+const collectionSlug = "chilldipperz"; // ✅ exact lowercase OpenSea slug
 async function loadGallery() {
   try {
-    if (!galleryContainer) return;
-
+    if
     galleryContainer.innerHTML = "<p style='color:#888;'>Loading ChillDipperz...</p>";
 
     // ✅ Fetch NFTs from OpenSea (Base chain)
