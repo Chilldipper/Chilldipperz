@@ -97,22 +97,68 @@
 
 <script>
 const galleryContainer = document.getElementById("nftGallery");
-const collectionSlug = "ChillDipperz"; // your OpenSea slug
+const collectionSlug = "Chilldipperz"; // your OpenSea slug
+const ipfsBase = "https://gateway.lighthouse.storage/ipfs/bafybeihxcnchgxo36sam22zjpown7vnd5xevh5xdkyhzrdg7ulgelru4cy/"; // your fallback IPFS folder
 
 async function loadGallery() {
   try {
     if (!galleryContainer) return;
-
     galleryContainer.innerHTML = "<p style='color:#888;'>Loading ChillDipperz...</p>";
 
-    // Fetch NFTs from OpenSea (Base chain)
+    // Try to fetch from OpenSea API
     const response = await fetch(`https://api.opensea.io/api/v2/chain/base/collection/${collectionSlug}/nfts?limit=9`);
     const data = await response.json();
 
-    if (!data.nfts || data.nfts.length === 0) {
-      galleryContainer.innerHTML = "<p style='color:#888;'>No NFTs found in the collection yet.</p>";
-      return;
+    let nfts = data.nfts;
+
+    // If OpenSea returns nothing, fallback to IPFS
+    if (!nfts || nfts.length === 0) {
+      console.warn("OpenSea returned no NFTs — using IPFS fallback.");
+      nfts = Array.from({ length: 9 }, (_, i) => ({
+        name: `ChillDipper #${i + 1}`,
+        image_url: `${ipfsBase}${i + 1}.png`,
+        opensea_url: `https://opensea.io/assets/base/0xE81e227f2d32836Ed92Dd374967b07F10437C485/${i + 1}`,
+      }));
     }
+
+    galleryContainer.innerHTML = "";
+    nfts.forEach(nft => {
+      const wrapper = document.createElement("a");
+      wrapper.href = nft.opensea_url;
+      wrapper.target = "_blank";
+      wrapper.style = "text-decoration:none;display:block;";
+
+      const img = document.createElement("img");
+      img.src = nft.image_url;
+      img.alt = nft.name;
+      img.loading = "lazy";
+      img.style = `
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #00e0ff66;
+        transition: 0.3s;
+        cursor: pointer;
+      `;
+      img.onmouseover = () => (img.style.transform = "scale(1.05)");
+      img.onmouseout = () => (img.style.transform = "scale(1)");
+
+      const caption = document.createElement("p");
+      caption.textContent = nft.name;
+      caption.style = "margin-top:8px;color:#aaa;font-size:0.8rem;";
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(caption);
+      galleryContainer.appendChild(wrapper);
+    });
+  } catch (err) {
+    console.error("Gallery load failed:", err);
+    galleryContainer.innerHTML = "<p style='color:#888;'>Could not load gallery. Try refreshing.</p>";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", loadGallery);
+</script>
+
 
     // Clear the container
     galleryContainer.innerHTML = "";
