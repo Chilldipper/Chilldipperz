@@ -15,8 +15,13 @@
       text-align: center;
       overflow-x: hidden;
     }
+
     .fade-block { opacity: 1; animation: fadeIn 1.2s ease forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     header img {
       width: 100%;
       max-height: 400px;
@@ -24,6 +29,7 @@
       box-shadow: 0 0 30px #00ccff33;
       margin-bottom: 2rem;
     }
+
     h1 {
       font-size: 2.5rem;
       margin-top: 1rem;
@@ -35,29 +41,37 @@
       0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
       50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
     }
+
     p.tagline { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
+
     .buttons { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; }
+
     a.btn, button.btn {
       text-decoration: none; color: #fff; border: 2px solid #00e0ff;
       padding: 0.8rem 1.5rem; border-radius: 50px; transition: 0.3s;
       box-shadow: 0 0 10px #00e0ff77; background: transparent;
       font-family: 'Orbitron', sans-serif; cursor: pointer;
     }
+
     a.btn:hover, button.btn:hover {
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
       box-shadow: 0 0 20px #00e0ff; transform: scale(1.05);
     }
+
     input#mintAmount {
       width: 60px; text-align: center; border-radius: 6px;
       padding: 0.3rem; border: 1px solid #00e0ff; background: #000;
       color: #00e0ff; font-family: 'Orbitron', sans-serif;
     }
+
     p.about {
       color: #ccc; max-width: 900px; margin: 0 auto 2rem auto;
       line-height: 1.4rem; font-size: 0.9rem; padding: 0 1rem;
       text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
     }
+
     footer { border-top: 1px solid #222; padding: 2rem 0; color: #888; font-size: 0.9rem; }
+
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       .buttons { flex-direction: column; }
@@ -71,24 +85,6 @@
       src="https://raw.githubusercontent.com/Chilldipper/Chilldipperz/main/Chilldipper%20banner.png"
       alt="ChillDipperz Banner">
   </header>
-
-  <!-- GALLERY SECTION -->
-  <section id="gallery" class="fade-block" style="margin:5rem auto; max-width:1000px; padding:0 1rem;">
-    <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff, 0 0 24px #ff00ff; margin-bottom:2rem;">
-      The Chill Gallery
-    </h2>
-    <div id="nftGallery" style="
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      justify-items: center;
-    "></div>
-    <div style="margin-top:2rem;">
-      <a href="https://opensea.io/collection/chilldipperz" target="_blank" class="btn">
-        View full collection on OpenSea
-      </a>
-    </div>
-  </section>
 
   <main>
     <h1 class="fade-block">Welcome to ChillDipperz</h1>
@@ -127,7 +123,7 @@
 
     <!-- LORE SECTION -->
     <section id="lore" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
-      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Lore</h2>
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff, 0 0 24px #ff00ff;">The Lore</h2>
       <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
         In the ancient charts of crypto chaos, there rose a tribe unlike any other.
         When the candles burned red and timelines screamed, they didn’t panic.
@@ -152,7 +148,7 @@
 
     <!-- THE VIBE SECTION -->
     <section id="vibe" class="fade-block" style="margin:5rem auto; max-width:900px; padding:0 1rem;">
-      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff,0 0 24px #ff00ff;">The Vibe</h2>
+      <h2 style="color:#00e0ff;text-shadow:0 0 12px #00e0ff, 0 0 24px #ff00ff;">The Vibe</h2>
       <p style="color:#ccc; line-height:1.6rem; margin-top:1.5rem;">
         We’re not building a roadmap. We’re building a mood.
       </p>
@@ -171,9 +167,7 @@
 
   <footer class="fade-block">© 2025 ChillDipperz — Stay Chill.</footer>
 
-  
-
-  <!-- mint JS (your old working one) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const connectBtn = document.getElementById('connectBtn');
