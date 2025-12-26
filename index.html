@@ -62,4 +62,53 @@
 
     a.btn:hover {
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
-      trans
+      transform: scale(1.05);
+    }
+
+    p.about {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #ccc;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img
+      class="fade-block"
+      src="Homepagebanner.jpg"
+      alt="ChillDipperz banner">
+  </header>
+
+  <main>
+    <h1 class="fade-block">ChillDipperz</h1>
+
+    <p class="tagline fade-block">
+      Don’t panic. Dip. Chill. Repeat.
+    </p>
+
+    <div class="buttons fade-block">
+      <a
+        href="https://twitter.com/chilldipperZ"
+        target="_blank"
+        rel="noopener"
+        class="btn">
+        Follow on Twitter
+      </a>
+    </div>
+
+    <p class="about fade-block">
+      Born to dip. Forced to chill.
+      A quiet corner for ideas, experiments, and things that don’t need to rush.
+    </p>
+  </main>
+</body>
+</html>
