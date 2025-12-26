@@ -17,150 +17,100 @@
       text-align: center;
     }
 
-    .fade-block {
-      opacity: 0;
-      animation: fadeIn 1.2s ease forwards;
-    }
+    .fade-block { opacity: 0; animation: fadeIn 1.2s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header img {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin: 1rem 0;
-      color: #00e0ff;
-    }
-
-    p.tagline {
-      font-size: 1.1rem;
-      color: #bbb;
-      margin-bottom: 2rem;
-    }
-
-    .buttons {
-      margin-bottom: 3rem;
-    }
-
+    header img { width: 100%; max-height: 400px; object-fit: cover; margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; margin: 1rem 0; color: #00e0ff; }
+    p.tagline { font-size: 1.1rem; color: #bbb; margin-bottom: 2rem; }
+    .buttons { margin-bottom: 3rem; }
     a.btn {
-      text-decoration: none;
-      color: #fff;
-      border: 2px solid #00e0ff;
-      padding: 0.8rem 1.6rem;
-      border-radius: 50px;
-      transition: 0.3s ease;
-      display: inline-block;
+      text-decoration: none; color: #fff; border: 2px solid #00e0ff;
+      padding: 0.8rem 1.6rem; border-radius: 50px; transition: 0.3s ease; display: inline-block;
     }
+    a.btn:hover { background: linear-gradient(90deg, #00e0ff, #ff00ff); transform: scale(1.05); }
 
-    a.btn:hover {
-      background: linear-gradient(90deg, #00e0ff, #ff00ff);
-      transform: scale(1.05);
-    }
-
-    p.about {
-      max-width: 720px;
-      margin: 0 auto 2.5rem;
-      padding: 0 1rem;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #ccc;
-    }
-
-    p.identity {
-      font-size: 0.7rem;
-      color: #666;
-      letter-spacing: 0.12em;
-      text-transform: lowercase;
-      margin-bottom: 2rem;
-    }
+    p.about { max-width: 720px; margin: 0 auto 2.5rem; padding: 0 1rem; font-size: 0.95rem; line-height: 1.5; color: #ccc; }
+    p.identity { font-size: 0.7rem; color: #666; letter-spacing: 0.12em; text-transform: lowercase; margin-bottom: 2rem; }
 
     p.fragment {
-      max-width: 720px;
-      margin: 4rem auto;
-      padding: 0 1rem;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: #d0d6da;
-      text-align: left;
-      opacity: 0.85;
-      letter-spacing: 0.02em;
+      max-width: 720px; margin: 4rem auto; padding: 0 1rem; font-size: 0.95rem;
+      line-height: 1.7; color: #d0d6da; text-align: left; opacity: 0.85; letter-spacing: 0.02em;
     }
 
     p.trace {
-      font-size: 0.7rem;
-      color: #555;
-      margin: 4rem 0 2rem;
-      letter-spacing: 0.1em;
+      font-size: 0.7rem; color: #555; margin: 4rem 0 2rem; letter-spacing: 0.1em;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-    }
+    @media (max-width: 600px) { h1 { font-size: 1.8rem; } }
+
   </style>
 </head>
 
 <body>
+  <!-- SECTION 1: Banner + Identity -->
   <header>
-    <img
-      class="fade-block"
-      src="Banner.png"
-      alt="Chilldipper banner">
+    <img class="fade-block" src="Banner.png" alt="Chilldipper banner">
   </header>
-
   <main>
     <h1 class="fade-block">Chilldipper</h1>
+    <p class="tagline fade-block">Don’t panic. Dip. Chill. Repeat.</p>
+    <p class="identity fade-block">this is me. the rest is signal decay.</p>
 
-    <p class="tagline fade-block">
-      Don’t panic. Dip. Chill. Repeat.
-    </p>
-
-    <div class="buttons fade-block">
-      <a
-        href="https://twitter.com/chilldipperZ"
-        target="_blank"
-        rel="noopener"
-        class="btn">
-        Follow on Twitter
-      </a>
-    </div>
-
-    <p class="about fade-block">
-      Born to dip. Forced to chill.
-      A quiet corner for fragments, experiments, and things that don’t need to rush.
-    </p>
-
-    <p class="identity fade-block">
-      this is me. the rest is signal decay.
-    </p>
-
+    <!-- SECTION 2: Core Fragment / Thesis -->
     <p class="fragment fade-block">
       <strong>the interface feels calm because it removed choice.</strong><br><br>
-
       friction was framed as failure.<br>
       hesitation was redesigned out.<br>
       every decision preloaded.<br><br>
-
       calm is not peace.<br>
       it’s the absence of alternatives.<br><br>
-
       nothing asks you anymore.<br>
       everything assumes.<br><br>
-
       you didn’t agree.<br>
       you just kept going.
     </p>
 
-    <p class="trace fade-block">
-      keep the signal alive →
+    <!-- SECTION 3: Deep Transmission -->
+    <p class="fragment fade-block">
+      <strong>post-choice transmission:</strong><br><br>
+      the network stopped asking permission.<br>
+      protocols whispered in empty loops.<br>
+      signals folded over themselves like origami errors.<br>
+      entropy learned to compute faster than memory.<br><br>
+      choice was a variable that no longer existed.<br>
+      freedom became an echo in a locked directory.<br>
+      users drifted like unparsed data in the cache.<br><br>
+      timestamps lost origin.<br>
+      errors remembered longer than logs.<br>
+      every interface was a ghost, observing itself.<br><br>
+      the system did not crash.<br>
+      it realized collapse was unnecessary.<br>
+      it simply dissolved the necessity of expectation.<br><br>
+      you thought you were reading.<br>
+      you were merely acknowledged.<br>
+      nothing remains to respond.
     </p>
+
+    <!-- SECTION 4: Fragment Gallery / Mini-archive -->
+    <p class="fragment fade-block">
+      <strong>fragments:</strong><br><br>
+      work multiplies. purpose vanishes.<br>
+      signals echo. humans buffer.<br>
+      interfaces anticipate. existence waits.<br>
+      the clock observes, the mind complies.<br>
+      memory caches what meaning forgot.
+    </p>
+
+    <!-- SECTION 5: Trace / Support -->
+    <p class="trace fade-block">
+      <a href="/support" class="btn">keep the signal alive →</a>
+    </p>
+
+    <!-- SECTION 6: Footer -->
+    <footer class="fade-block">
+      <small>© 2025 Chilldipper — quiet thoughts after noise.</small>
+    </footer>
   </main>
 </body>
 </html>
