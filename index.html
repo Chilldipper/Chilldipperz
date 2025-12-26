@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ChillDipperz NFT Collection — Don't panic. Dip. Chill. Repeat." />
+  <meta name="description" content="ChillDipperz — a quiet place for ideas, experiments, and slow thoughts." />
   <title>ChillDipperz</title>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
       background: radial-gradient(circle at top, #0a0a1a, #000);
       color: #fff;
       text-align: center;
-      overflow-x: hidden;
     }
 
-    .fade-block { opacity: 1; animation: fadeIn 1.2s ease forwards; }
+    .fade-block {
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -26,74 +31,35 @@
       width: 100%;
       max-height: 400px;
       object-fit: cover;
-      box-shadow: 0 0 30px #00ccff33;
       margin-bottom: 2rem;
     }
 
     h1 {
       font-size: 2.5rem;
-      margin-top: 1rem;
+      margin: 1rem 0;
       color: #00e0ff;
-      text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff;
-      animation: pulse 3s infinite ease-in-out;
-    }
-    @keyframes pulse {
-      0%, 100% { text-shadow: 0 0 10px #00e0ff, 0 0 20px #ff00ff; }
-      50% { text-shadow: 0 0 25px #00e0ff, 0 0 40px #ff00ff; }
     }
 
-    p.tagline { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
-
-    .buttons { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; }
-
-    a.btn, button.btn {
-      text-decoration: none; color: #fff; border: 2px solid #00e0ff;
-      padding: 0.8rem 1.5rem; border-radius: 50px; transition: 0.3s;
-      box-shadow: 0 0 10px #00e0ff77; background: transparent;
-      font-family: 'Orbitron', sans-serif; cursor: pointer;
+    p.tagline {
+      font-size: 1.1rem;
+      color: #bbb;
+      margin-bottom: 2rem;
     }
 
-    a.btn:hover, button.btn:hover {
+    .buttons {
+      margin-bottom: 3rem;
+    }
+
+    a.btn {
+      text-decoration: none;
+      color: #fff;
+      border: 2px solid #00e0ff;
+      padding: 0.8rem 1.6rem;
+      border-radius: 50px;
+      transition: 0.3s ease;
+      display: inline-block;
+    }
+
+    a.btn:hover {
       background: linear-gradient(90deg, #00e0ff, #ff00ff);
-      box-shadow: 0 0 20px #00e0ff; transform: scale(1.05);
-    }
-
-    input#mintAmount {
-      width: 60px; text-align: center; border-radius: 6px;
-      padding: 0.3rem; border: 1px solid #00e0ff; background: #000;
-      color: #00e0ff; font-family: 'Orbitron', sans-serif;
-    }
-
-    p.about {
-      color: #ccc; max-width: 900px; margin: 0 auto 2rem auto;
-      line-height: 1.4rem; font-size: 0.9rem; padding: 0 1rem;
-      text-shadow: 0 0 6px #00e0ff, 0 0 12px #ff00ff;
-    }
-
-    footer { border-top: 1px solid #222; padding: 2rem 0; color: #888; font-size: 0.9rem; }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-      .buttons { flex-direction: column; }
-    }
-  </style>
-</head>
-
-<body>
-<header>
-  <img class="fade-block"
-    src="Homepagebanner.jpg"
-    alt="ChillDipperz Homepage Banner">
-</header>
-  <main>
-    <h1 class="fade-block">Welcome to ChillDipperz</h1>
-    <p class="tagline fade-block">Don’t panic. Dip. Chill. Repeat.</p>
-    <div class="buttons fade-block">
-      <a href="https://twitter.com/chilldipperZ" target="_blank" class="btn">Follow on Twitter</a>
-         </div>
-
-    <p class="about fade-block">
-      Born to dip. Forced to chill. When the chart bleeds, the chill begins.
-    </p>
-</body>
-</html>
+      trans
